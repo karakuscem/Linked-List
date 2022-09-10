@@ -117,45 +117,6 @@ class Node {
   
       return string;
     }
-  
-    insertAt(value, index) {
-      let temp = this.HEAD;
-      let tempNext;
-      let count = 1;
-      let newNode = new Node(value);
-  
-      if (index == 0) {
-        newNode.nextNode = temp;
-        this.HEAD = newNode;
-        return;
-      }
-  
-      while (temp != null) {
-        if (count == index) {
-          tempNext = temp.nextNode;
-          temp.nextNode = newNode;
-          newNode.nextNode = tempNext;
-          return;
-        }
-  
-        count++;
-        temp = temp.nextNode;
-      }
-    }
-  
-    removeAt(index) {
-      if (index === 0) {
-        const valueOfRemoved = this.HEAD.value;
-        this.HEAD = this.HEAD.nextNode;
-        return valueOfRemoved;
-      }
-  
-      const nodeBeforeRemovedOne = this.at(index - 1);
-      const valueOfRemoved = nodeBeforeRemovedOne.nextNode.value;
-      nodeBeforeRemovedOne.nextNode = nodeBeforeRemovedOne.nextNode.nextNode;
-  
-      return valueOfRemoved;
-    }
 }
 
 const list = new LinkedList();
