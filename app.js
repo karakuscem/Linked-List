@@ -1,0 +1,140 @@
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.NextNode = null;
+    }
+}
+
+class LinkedList {
+    constructor(headNode) {
+        this.HEAD = headNode;
+        this.HEAD.NextNode = null;
+    }
+
+    append(value) {
+        const newNode = new Node(value);
+        let temp = this.HEAD;
+
+        if (temp.nextNode != null) {
+            temp = temp.nextNode;
+        }
+
+        temp.nextNode = newNode;
+    }
+
+    prepend(value) {
+        const newHead = new Node(value);
+        newHead.nextNode = this.HEAD;
+        this.HEAD = newHead;
+    }
+
+    size() {
+        let count = 0;
+        let temp = this.HEAD;
+
+        while(temp != null) {
+            temp = temp.nextNode;
+            count++;
+        }
+
+        return count;
+    }
+
+    head() {
+        return this.HEAD.value;
+    }
+
+    tail() {
+        let temp = this.HEAD;
+
+        while (temp.nextNode != null) {
+            temp = temp.nextNode;
+        }
+
+        return temp.value;
+    }
+
+    at(index) {
+        let temp = this.HEAD;
+        let count = 1;
+
+        while (temp.nextNode != null && count !== index) {
+            temp = temp.nextNode;
+            count++;
+        }
+
+        return temp.value;
+    }
+
+    pop() {
+        let temp = this.HEAD;
+        while (temp.nextNode.nextNode != null) {
+            temp = temp.nextNode
+        }
+
+        temp.nextNode = null;
+    }
+
+    contains(value) {
+        let temp = this.HEAD;
+
+        while (temp != null && temp.value !== value) {
+            temp = temp.nextNode;
+        }
+
+        return temp == null ? false : true
+    }
+
+    toString() {
+        let temp = this.HEAD;
+        let string = "";
+
+        while(temp != null) {
+            console.log(temp.value);
+            string += `(${temp.value}) -> `;
+            temp = temp.nextNode;
+        }
+
+        string += "(null)";
+        return string;
+    }
+
+    insertAt(value, index) {
+        let temp = this.HEAD;
+        let tempNext;
+        let count = 1;
+        let newNode = new Node(value);
+
+        if (index == 0) {
+            newNode.nextNode = temp;
+            this.HEAD = newNode;
+            return
+        }
+
+        while (temp != null) {
+            if(count == index) {
+                tempNext = temp.nextNode;
+                temp.nextNode = newNode;
+                newNode.nextNode = tempNext;
+                return
+            }
+
+            count++;
+            temp = temp.nextNode;
+        }
+    }
+
+    removeAt(index) {
+        if (index === 0) {
+            const valueOfRemoved = this.HEAD.value;
+            this.HEAD = this.HEAD.nextNode;
+            return valueOfRemoved;
+        }
+
+        const nodeBeforeRemovedOne = this.at(index - 1);
+        const valueOfRemoved = nodeBeforeRemovedOne.nextNode.value;
+        nodeBeforeRemovedOne.nextNode = nodeBeforeRemovedOne.nextNode.nextNode;
+
+        return valueOfRemoved;
+    }
+}
