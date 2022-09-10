@@ -8,85 +8,88 @@ class Node {
   class LinkedList {
     constructor(headNode) {
       this.HEAD = headNode;
-      this.HEAD.nextNode = null;
+      this.nextNode = null;
     }
-  
+
     append(value) {
-      const newNode = new Node(value);
       let temp = this.HEAD;
-  
-      while (temp.nextNode != null) {
+      const newNode = new Node(value);
+
+      while(temp.nextNode != null) {
         temp = temp.nextNode;
       }
-  
+
       temp.nextNode = newNode;
     }
-  
+
     prepend(value) {
-      let newHead = new Node(value);
-  
+      const newHead = new Node(value);
+
       newHead.nextNode = this.HEAD;
       this.HEAD = newHead;
     }
-  
+
     size() {
-      let count = 0;
       let temp = this.HEAD;
-  
+      let count = 1;
+
       while (temp != null) {
         temp = temp.nextNode;
         count++;
       }
-  
+
       return count;
     }
-  
+
     head() {
       return this.HEAD.value;
     }
-  
+
     tail() {
       let temp = this.HEAD;
-  
-      while (temp.nextNode != null) {
+
+      while(temp.nextNode != null) {
         temp = temp.nextNode;
       }
-  
+
       return temp.value;
     }
-  
+
     at(index) {
       let temp = this.HEAD;
-      let count = 1;
-  
-      while (temp.nextNode != null && count !== index) {
+      let count = 0;
+
+      while (count != index){
         temp = temp.nextNode;
         count++;
       }
-  
+
       return temp.value;
     }
-  
+
     pop() {
       let temp = this.HEAD;
-  
+
       while (temp.nextNode.nextNode != null) {
         temp = temp.nextNode;
       }
-  
       temp.nextNode = null;
     }
-  
+
     contains(value) {
       let temp = this.HEAD;
-  
+
       while (temp != null && temp.value !== value) {
         temp = temp.nextNode;
       }
-  
-      return temp == null ? false : true;
+
+      if (temp.value == value) {
+        return true;
+      } else {
+        return false;
+      }
     }
-  
+
     find(value) {
       let temp = this.HEAD;
       let index = 0;
@@ -153,4 +156,18 @@ class Node {
   
       return valueOfRemoved;
     }
-  }
+}
+
+const list = new LinkedList();
+console.log(list.prepend(1));
+console.log(list.append(2));
+console.log(list.append(3));
+console.log(list.append(4));
+console.log(list.size());
+console.log(list.head());
+console.log(list.tail());
+console.log(list.at(2));
+console.log(list.pop());
+console.log(list.contains(3));
+console.log(list.find(2));
+console.log(list.toString());
